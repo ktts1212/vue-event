@@ -17,8 +17,8 @@
                     <el-input placeholder="请再次输入密码" type="password" v-model="regform.repassword"></el-input>
                 </el-form-item>
                 <el-form-item >
-                    <el-button class="btn-reg" type="primary" @click="onSubmit">登录</el-button>
-                    <el-link type="info">去登录</el-link>
+                    <el-button class="btn-reg" type="primary" @click="onSubmit">注册</el-button>
+                    <el-link type="info" @click="$router.push('/login')">去登录</el-link>
                 </el-form-item>
             </el-form>
         </div>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { registerApi } from '@/api'
 export default {
   name: 'my-register',
 
@@ -74,7 +75,20 @@ export default {
   },
   methods: {
     onSubmit () {
-
+      this.$refs.regRef.validate(async valid => {
+        if (valid) {
+          const { data: res } = await registerApi(this.regform)
+          console.log(res)
+          if (res.code === 0) {
+            this.$message.success(res.message)
+            this.$router.push('/login')
+          } else if (res.code === 1) {
+            return this.$message.error(res.message)
+          }
+        } else {
+          return false
+        }
+      })
     }
   }
 }

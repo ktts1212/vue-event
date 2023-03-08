@@ -1,13 +1,24 @@
 import request from '@/utils/request'
 
-export const registerApi = () => {
+export const registerApi = ({ username, password, repassword }) => {
   return request({
     url: '/api/reg',
     method: 'post',
     data: {
-      username: 'qwertyqew',
-      password: '111111',
-      repassword: '111111'
+      username,
+      password,
+      repassword
+    }
+  })
+}
+
+export const loginApi = ({ username, password }) => {
+  return request({
+    url: '/api/login',
+    method: 'post',
+    data: {
+      username,
+      password
     }
   })
 }
