@@ -20,6 +20,7 @@
 
 <script>
 import { updateUserAvatarApi } from '@/api/index'
+
 export default {
   name: 'UserAvatar',
   data () {
